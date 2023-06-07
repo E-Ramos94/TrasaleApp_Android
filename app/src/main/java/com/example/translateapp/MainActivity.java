@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String codigo_idioma_origen = "es";
     private String titulo_idioma_origien = "Español";
+    private String codigo_idioma_destino = "en";
+    private String titulo_idioma_destino = "Ingles";
 
 
     @Override
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         Btn_Idioma_Elegido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Idioma elegido", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Idioma elegido", Toast.LENGTH_SHORT).show();
+                ElegirIdiomaDestino();
             }
         });
 
@@ -109,6 +112,33 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(REGISTROS, "onMenuItemClick: codigo_idioma_origen: " + codigo_idioma_origen);
                 Log.d(REGISTROS, "onMenuItemClick: titulo_idioma_origien: " + titulo_idioma_origien);
+
+                return false;
+            }
+        });
+    }
+
+    private void ElegirIdiomaDestino(){
+        PopupMenu popupMenu = new PopupMenu(this, Btn_Idioma_Elegido);
+        for(int i = 0; i<IdiomasrrayList.size(); i++){
+            popupMenu.getMenu().add(Menu.NONE, i, i, IdiomasrrayList.get(i).getTitulo_idioma());
+        }
+
+        popupMenu.show();
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                int position = item.getItemId();
+
+                codigo_idioma_destino = IdiomasrrayList.get(position).getCodigo_idioma();
+                titulo_idioma_destino = IdiomasrrayList.get(position).getTitulo_idioma();
+
+                Btn_Idioma_Elegido.setText(titulo_idioma_destino);
+
+                Log.d(REGISTROS, "onMenuItemClick: codigo_idioma_destino: " + codigo_idioma_destino);
+                Log.d(REGISTROS, "onMenuItemClick: titulo_idioma_destino: " + titulo_idioma_destino);
 
                 return false;
             }

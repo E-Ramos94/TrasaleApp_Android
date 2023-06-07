@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         InicializarVistas();
         IdiomasDisponibles();
+
+        //getSupportActionBar().show();
 
         Btn_Elegir_Idioma.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,5 +227,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "" +e, Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mi_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.Menu_limpiar_texto){
+            String String_texto = "Traducción";
+            Et_Idioma_Origen.setText("");
+            Et_Idioma_Origen.setHint("Ingrese texto");
+            Tv_Idioma_Destino.setText(String_texto);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
